@@ -1,12 +1,10 @@
-import React from "react";
-import ReactDOM from "react-dom";
 import "./index.css";
 import "./null.css";
-import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
-import state from './data/state.js'
+import state from "./data/state.js";
+import { RenderDOM } from "./RenderDOM";
 
-ReactDOM.render(<App state={state}/>, document.getElementById("root"));
+RenderDOM(state);
 
 reportWebVitals();

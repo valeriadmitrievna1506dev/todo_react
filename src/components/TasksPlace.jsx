@@ -1,8 +1,6 @@
-import React from "react";
-import { tasksFromData } from "../functions/createTask";
-
+import React from 'react';
+import { tasksFromData } from '../functions/createTasks';
 
 export default function TasksPlace(props) {
-  console.log(props.tasks);
-  return <ul id="tasksContent">{tasksFromData(props.tasks)}</ul>;
+  return <ul id='tasksContent'>{tasksFromData(props.tasks)}</ul>;
 }
