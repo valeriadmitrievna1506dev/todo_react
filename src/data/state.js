@@ -52,4 +52,21 @@ export const deleteTask = (event) => {
   RenderDOM(state);
 };
 
+export const addTask = (event) => {
+  event.preventDefault();
+  if (event.currentTarget.querySelector('#tacskinput').value) {
+    let newTask = {
+      id: state.tasks.length > 0
+        ? state.tasks.reduce((acc, curr) => (acc.id > curr.id ? acc : curr))
+            .id + 1
+        : 0,
+      text: event.currentTarget.querySelector('#tacskinput').value,
+      completed: false,
+    };
+    state.tasks.push(newTask);
+    event.currentTarget.querySelector('#tacskinput').value = ''
+    RenderDOM(state);
+  }
+};
+
 export default state;
