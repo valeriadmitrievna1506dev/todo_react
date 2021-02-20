@@ -1,6 +1,7 @@
 import Task from '../components/Task';
 
 export function tasksFromData(tasksArray) {
+  if (!tasksArray) return 'No tasks'
   return tasksArray.map((taskObject) => {
     if (taskObject.completed) {
       return (

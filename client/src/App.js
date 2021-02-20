@@ -3,7 +3,7 @@ import { useRoutes } from './components/routes';
 import './main.css';
 
 function App(props) {
-  const routes = useRoutes(false, props.state);
+  const routes = useRoutes(true, props.state);
 
   return (
     <BrowserRouter>
