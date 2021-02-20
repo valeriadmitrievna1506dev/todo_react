@@ -1,9 +1,9 @@
 import { BrowserRouter } from 'react-router-dom';
-import { useRoutes } from './components/routes';
+import { useRoutes } from './routes';
 import './main.css';
 
-function App(props) {
-  const routes = useRoutes(true, props.state);
+function App() {
+  const routes = useRoutes(true);
 
   return (
     <BrowserRouter>

@@ -1,14 +1,14 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import AuthPage from './AuthPage';
-import TaskPage from './TaskPage';
+import AuthPage from './components/AuthPage';
+import TaskPage from './components/TasksPage';
 
-export const useRoutes = (isAuthenticated, state) => {
+export const useRoutes = (isAuthenticated) => {
   if (isAuthenticated) {
     return (
       <Switch>
         <Route path='/items'>
-          <TaskPage data={state} />
+          <TaskPage />
         </Route>
         <Redirect to='/items' />
       </Switch>

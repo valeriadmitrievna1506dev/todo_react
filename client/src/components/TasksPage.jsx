@@ -7,7 +7,7 @@ export default function TaskPage(props) {
     return (
         <div>
             <AddTaskForm />
-            <TasksPlace data={props.data}/>
+            <TasksPlace localState={props.localState} />
             <BottomPanel />
         </div>
     )
