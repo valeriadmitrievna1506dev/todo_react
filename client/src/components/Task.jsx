@@ -12,7 +12,6 @@ export default function Task(props) {
     setEditMode(true);
   };
   const deactivateEditMode = (e) => {
-    console.log(e.target);
     setEditMode(false);
     setTaskText(e.target.value);
     editTaskText(e.target, tasktext);
