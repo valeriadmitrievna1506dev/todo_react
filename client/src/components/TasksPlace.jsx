@@ -1,27 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { tasksFromData } from '../functions/createTasks';
-import { deleteTask } from '../data/state';
-import instance from '../axios';
+import Task from './Task';
 
-export default function TasksPlace() {
-  const [tasksState, setTasksState] = useState();
-
-  async function fetchData() {
-    try {
-      const response = await instance.get('/items');
-      if (response.statusText === 'OK') {
-        const tasksData = await response.data;
-        console.log(tasksData);
-        setTasksState(tasksData);
+export default function TasksPlace(props) {
+  const displayTasks = () => {
+    if (!props.data) return 'No tasks';
+    return props.data.map((taskObject) => {
+      if (taskObject.done) {
+        return (
+          <Task
+            editTask={props.editTask}
+            id={taskObject.id}
+            className='complete'
+            text={taskObject.text}
+          />
+        );
+      } else {
+        return <Task editTask={props.editTask} id={taskObject.id} className='' text={taskObject.text} />;
       }
-    } catch (err) {
-      console.log(err.message);
-    }
-  }
+    });
+  };
 
-  useEffect(() => {
-    fetchData(setTasksState);
-  }, [deleteTask]);
-
-  return <ul id='tasksContent'>{tasksFromData(tasksState)}</ul>;
+  return <ul id='tasksContent'>{displayTasks()}</ul>;
 }

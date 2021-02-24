@@ -1,9 +1,12 @@
-import "./index.css";
-import "./null.css";
-import reportWebVitals from "./reportWebVitals";
+import App from './App';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import reportWebVitals from './reportWebVitals';
+import './null.css'
+import './common.css'
 
-import { RenderDOM } from "./RenderDOM";
+export const baseUrl = 'http://localhost:3005';
 
-RenderDOM();
+ReactDOM.render(<App />, document.getElementById('root'));
 
 reportWebVitals();

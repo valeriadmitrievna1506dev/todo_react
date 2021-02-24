@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { deleteTask, makeTaskCompleted, editTaskText } from '../data/state';
+import { PutDoneTask } from '../fetchData';
 
 export default function Task(props) {
   const [tasktext, setTaskText] = useState(props.text);
@@ -15,11 +15,8 @@ export default function Task(props) {
     setEditMode(false);
     setTaskText(e.target.value);
     editTaskText(e.target, tasktext);
+    console.log('task edited');
   };
-
-  useEffect(() => {
-    setTaskText(props.text);
-  }, [props.text]);
 
   return (
     <li data-id={props.id} className={props.className}>
@@ -32,7 +29,7 @@ export default function Task(props) {
           onBlur={(event) => deactivateEditMode(event)}
           type='text'
           defaultValue={props.text}
-          onChange={e => setTaskText(e.target.value)}
+          onChange={(e) => setTaskText(e.target.value)}
         />
       )}
       {!editMode && (
@@ -40,7 +37,7 @@ export default function Task(props) {
           {props.text}
         </span>
       )}
-      <button onClick={makeTaskCompleted} className='doneTask'>
+      <button onClick={(event) => props.editTask(event)} className='doneTask'>
         <svg
           xmlns='http://www.w3.org/2000/svg'
           version='1.1'
@@ -83,7 +80,7 @@ export default function Task(props) {
           <g> </g>{' '}
         </svg>{' '}
       </button>
-      <button onClick={deleteTask} className='deleteTask'>
+      <button className='deleteTask'>
         <svg
           xmlns='http://www.w3.org/2000/svg'
           version='1.1'
