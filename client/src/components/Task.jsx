@@ -14,8 +14,7 @@ export default function Task(props) {
   const deactivateEditMode = (e) => {
     setEditMode(false);
     setTaskText(e.target.value);
-    editTaskText(e.target, tasktext);
-    console.log('task edited');
+    props.editText(e, tasktext);
   };
 
   return (
@@ -37,7 +36,7 @@ export default function Task(props) {
           {props.text}
         </span>
       )}
-      <button onClick={(event) => props.editTask(event)} className='doneTask'>
+      <button onClick={(event) => props.doneTask(event)} className='doneTask'>
         <svg
           xmlns='http://www.w3.org/2000/svg'
           version='1.1'
@@ -80,7 +79,7 @@ export default function Task(props) {
           <g> </g>{' '}
         </svg>{' '}
       </button>
-      <button className='deleteTask'>
+      <button onClick={(event) => props.deleteTask(event)} className='deleteTask'>
         <svg
           xmlns='http://www.w3.org/2000/svg'
           version='1.1'

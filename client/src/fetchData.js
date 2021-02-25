@@ -24,12 +24,37 @@ export const fetchData = async (order = 'normal', done = 'all') => {
 };
 
 export const AddTask = async (text) => {
-  const result = await axios.post(`${baseUrl}/items`, { text });
+  try {
+    const result = await axios.post(`${baseUrl}/items`, { text });
+  } catch (err) {
+    console.log(err.message);
+  }
 };
 
 export const PutDoneTask = async (id, done) => {
-  const result = await axios.put(`${baseUrl}/items/${id}`, {
-    done: done
-  })
-  console.log(result);
+  try {
+    const result = await axios.put(`${baseUrl}/items/${id}`, {
+      done: done,
+    });
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+
+export const editTaskText = async (id, text) => {
+  try {
+    const result = await axios.put(`${baseUrl}/items/${id}`, {
+      text: text,
+    });
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+
+export const DeleteTask = async (id) => {
+  try {
+    const result = await axios.delete(`${baseUrl}/items/${id}`)
+  } catch (error) {
+    console.log(error.message);
+  }
 }

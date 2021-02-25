@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import AddTaskForm from './components/AddTaskForm';
 import TasksPlace from './components/TasksPlace';
 import BottomPanel from './components/BottomPanel';
-import { AddTask, fetchData, PutDoneTask } from './fetchData';
+import { AddTask, DeleteTask, editTaskText, fetchData, PutDoneTask } from './fetchData';
 
 function App() {
   const [data, setData] = useState();
@@ -23,10 +23,22 @@ function App() {
     setData(await fetchData(filters.order, filters.done));
   };
 
-  const getTaskDone = async (e) => {
+  const callEditTask = async (e, text) => {
+    const id = e.currentTarget.parentElement.getAttribute('data-id');
+    await editTaskText(id, text);
+    setData(await fetchData(filters.order, filters.done));
+  };
+
+  const callTaskDone = async (e) => {
     const id = e.currentTarget.parentElement.getAttribute('data-id');
     const value = e.currentTarget.parentElement.classList.value ? true : false;
     await PutDoneTask(id, !value);
+    setData(await fetchData(filters.order, filters.done));
+  };
+
+  const callDeleteTask = async (e) => {
+    const id = e.currentTarget.parentElement.getAttribute('data-id');
+    await DeleteTask(id);
     setData(await fetchData(filters.order, filters.done));
   };
 
@@ -138,7 +150,12 @@ function App() {
           ToDo List
         </h1>
         <AddTaskForm addTask={callAddTask} />
-        <TasksPlace data={data} editTask={getTaskDone} />
+        <TasksPlace
+          data={data}
+          deleteTask={callDeleteTask}
+          doneTask={callTaskDone}
+          editText={callEditTask}
+        />
         <BottomPanel updateFilters={updateFilters} />
       </div>
     </div>
