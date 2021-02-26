@@ -1,19 +1,24 @@
-const TodoItem = require('../../models').TodoItem;
+const TodoItem = require('./../models').TodoItem;
 const express = require('express');
 const router = express.Router();
 
-router.get('', async (req, res) => {
+router.get('/users/:userId/tasks', async (req, res) => {
   try {
     const filter = {
       order:
         req.query.order === 'reverse'
           ? [['createdAt']]
           : [['createdAt', 'DESC']],
+      where: {
+        userId: parseInt(req.params.userId),
+      },
     };
 
     if (req.query.done)
       filter.where =
-        req.query.done === 'done' ? { done: true } : { done: false };
+        req.query.done === 'done'
+          ? { done: true, userId: parseInt(req.params.userId) }
+          : { done: false, userId: parseInt(req.params.userId) };
 
     const result = await TodoItem.findAll(filter);
     res.status(200).send(result);

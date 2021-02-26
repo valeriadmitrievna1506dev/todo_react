@@ -7,19 +7,20 @@ module.exports = (app) => {
 
   const klawSync = require('klaw-sync');
   const path = require('path');
-  async function useControllersTodoItems() {
-    const paths = klawSync(
-      path.resolve('server/controllers/todoitems'),
-      { nodir: true, }
-      );
+
+  async function useControllers() {
+    const paths = klawSync(path.resolve('server/controllers'), {
+      nodir: true,
+    });
     paths.forEach((file) => {
       if (
         path.basename(file.path)[0] === '_' ||
         path.basename(file.path)[0] === '.'
       )
         return;
-      app.use('/items', require(file.path));
+      app.use('/', require(file.path));
     });
   }
-  useControllersTodoItems();
+
+  useControllers();
 };

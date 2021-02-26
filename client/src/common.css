@@ -1,4 +1,5 @@
 body {
+  padding: 70px 0;
   font-family: 'Caveat';
   background-image: linear-gradient(120deg, #e481d7, #249191);
   color: aliceblue;
@@ -6,6 +7,65 @@ body {
 
 * {
   user-select: none;
+}
+
+#userPanel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.2);
+  color: #000;
+  font-size: 28px;
+  line-height: 1;
+  padding: 12px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+#userPanel span {
+  font-weight: bold;
+}
+#userPanel input {
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, .6);
+}
+#userPanel .buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+#userPanel button {
+  text-align: center;
+  border-radius: 0;
+  border: none;
+  background-color: rgb(211, 188, 58);
+  padding: 8px 18px;
+  position: relative;
+}
+#userPanel button:first-of-type {
+  background-color: rgb(69, 163, 56);
+  border-radius: 8px 0 0 8px;
+}
+#userPanel button:last-of-type {
+  background-color: rgb(187, 59, 59);
+  border-radius: 0 8px 8px 0;
+}
+#userPanel button::before {
+  position: absolute;
+  content: '';
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: inherit;
+  border-radius: inherit;
+  z-index: -1;
+  transition: 0.3s;
+}
+
+#userPanel button:hover::before {
+  filter: blur(8px);
 }
 
 .edit_modal {
@@ -154,7 +214,7 @@ h1 svg {
 }
 
 #tasksContent input {
-  background-color: rgba(0,0,0,0);
+  background-color: rgba(0, 0, 0, 0);
   border: none;
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   width: 100%;

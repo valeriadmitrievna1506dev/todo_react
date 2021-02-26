@@ -1,0 +1,13 @@
+static associate(models) {
+      User.hasMany(models.TodoItem, {
+        foreignKey: 'userId',
+        as: 'todoItems',
+      });
+    }
+
+    static associate(models) {
+      TodoItem.belongsTo(models.User, {
+        foreignKey: 'userId',
+        onDelete: 'CASCADE',
+      });
+    }

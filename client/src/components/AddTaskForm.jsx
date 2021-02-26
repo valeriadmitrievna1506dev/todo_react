@@ -4,7 +4,7 @@ import { AddTask } from '../fetchData';
 export default function AddTaskForm(props) {
   const [taskText, setTaskText] = useState();
 
-  const submitAdd = () => {
+  const submitAdd = (event) => {
     event.preventDefault();
     props.addTask(taskText)
     event.target.reset()

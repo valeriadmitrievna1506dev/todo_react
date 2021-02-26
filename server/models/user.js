@@ -1,28 +1,34 @@
 'use strict';
 const { Model } = require('sequelize');
+const bcrypt = require("bcrypt-nodejs");
 module.exports = (sequelize, DataTypes) => {
-  class TodoItem extends Model {
+  class User extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      TodoItem.belongsTo(models.User, {
+      User.hasMany(models.TodoItem, {
         foreignKey: 'userId',
-        onDelete: 'CASCADE',
+        as: 'todoItems',
       });
     }
   }
-  TodoItem.init(
+  User.init(
     {
-      text: DataTypes.STRING,
-      done: DataTypes.BOOLEAN,
+      username: DataTypes.STRING,
+      password: {
+        type: DataTypes.STRING,
+        set (value) {
+          this.setDataValue('password', bcrypt.hashSync(value, bcrypt.genSaltSync(8), null))
+        }
+      },
     },
     {
       sequelize,
-      modelName: 'TodoItem',
+      modelName: 'User',
     }
   );
-  return TodoItem;
+  return User;
 };

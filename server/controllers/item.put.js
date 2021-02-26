@@ -1,8 +1,8 @@
-const TodoItem = require('../../models').TodoItem;
+const TodoItem = require('./../models').TodoItem;
 const express = require('express');
 const router = express.Router();
 
-router.put('/:id', async (req, res) => {
+router.put('/users/:id/tasks/:idtask', async (req, res) => {
   try {
     const task = req.body;
 
@@ -12,7 +12,10 @@ router.put('/:id', async (req, res) => {
       });
     }
 
-    const todoItem = await TodoItem.findByPk(req.params.id);
+    if (!req.params.id) throw new Error(400);
+    if (!req.params.idtask) throw new Error(400);
+
+    const todoItem = await TodoItem.findByPk(req.params.idtask);
 
     if (!todoItem) {
       return res.status(404).send({
@@ -22,10 +25,9 @@ router.put('/:id', async (req, res) => {
 
     await todoItem.update(task);
 
-    res.status(200).send(todoItem);
+    res.status(201).send(todoItem);
   } catch (err) {
-    console.log(err.message);
-    res.status(400).send(err.message);
+    res.status(400).send(err);
   }
 });
 
